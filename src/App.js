@@ -69,17 +69,17 @@ function App() {
     }
   };
 
-  const toggleTask = async (task) => {
+  const toggleTask = async (taskId, currentCompleted) => {
     try {
-      const response = await fetch(`${API_URL}/tasks/${task._id}`, {
+      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: !task.completed })
+        body: JSON.stringify({ completed: !currentCompleted })
       });
       const data = await response.json();
       if (data.success) {
         setTasks(prev => prev.map(t => 
-          t._id === task._id ? { ...t, completed: data.data.completed } : t
+          t._id === taskId ? { ...t, completed: data.data.completed } : t
         ));
       } else {
         setError(data.error || 'Error al actualizar tarea');
@@ -89,16 +89,16 @@ function App() {
     }
   };
 
-  const deleteTask = async (task) => {
+  const deleteTask = async (taskId) => {
     if (!window.confirm('¿Estás seguro de eliminar esta tarea?')) return;
     
     try {
-      const response = await fetch(`${API_URL}/tasks/${task._id}`, {
+      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
         method: 'DELETE'
       });
       const data = await response.json();
       if (data.success) {
-        setTasks(prev => prev.filter(t => t._id !== task._id));
+        setTasks(prev => prev.filter(t => t._id !== taskId));
       } else {
         setError(data.error || 'Error al eliminar tarea');
       }

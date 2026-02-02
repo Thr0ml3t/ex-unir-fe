@@ -1,9 +1,6 @@
 import React from 'react';
 
-function Stats({ tasks = [] }) {
-  const total = tasks.length;
-  const completed = tasks.filter(t => t.completed).length;
-  const pending = total - completed;
+function Stats({ total = 0, pending = 0, completed = 0 }) {
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   return (
