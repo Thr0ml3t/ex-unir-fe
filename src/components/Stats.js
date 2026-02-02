@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Stats({ tasks }) {
+function Stats({ tasks = [] }) {
   const total = tasks.length;
   const completed = tasks.filter(t => t.completed).length;
   const pending = total - completed;

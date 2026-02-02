@@ -1,8 +1,8 @@
 import React from 'react';
 import TaskItem from './TaskItem';
 
-function TaskList({ tasks, onToggle, onDelete, filter }) {
-  if (tasks.length === 0) {
+function TaskList({ tasks = [], onToggle, onDelete, filter }) {
+  if (!tasks || tasks.length === 0) {
     return (
       <div className="empty-state">
         <svg width="80" height="80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
